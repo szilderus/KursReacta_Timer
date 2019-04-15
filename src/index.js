@@ -59,20 +59,39 @@ class Timebox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isRunning: true,
+      isRunning: false,
       isPaused: false,
       pausesCount: 0
     };
   }
 
+  handleStart(event) {
+    this.setState({
+      isRunning: true
+    });
+  }
+
+  handleStop(event) {
+    this.setState({
+      isRunning: false,
+      isPaused: false,
+      pausesCount: 0
+    });
+  }
+
   render() {
+    const { isPaused, isRunning, pausesCount } = this.state;
     return (
       <div className="Timebox">
         <h1>Uczę się skrótów klawiszowych</h1>
         <Clock hours="-33" minutes="-59" seconds="-59" miliseconds="111" />
         <ProgressBar percent="20" trackRemaining="true" />
-        <button>Start</button>
-        <button>Stop</button>
+        <button onClick={this.handleStart.bind(this)} disabled={isRunning}>
+          Start
+        </button>
+        <button onClick={this.handleStop.bind(this)} disabled={!isRunning}>
+          Stop
+        </button>
         <button>Pauzuj</button>Liczba przerw: 2
       </div>
     );
