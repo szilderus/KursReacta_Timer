@@ -3,14 +3,14 @@ import ReactDOM from "react-dom";
 
 import "./styles.css";
 
-function Clock({ hours = 0, minutes = 20, seconds = 0, miliseconds = 0 }) {
+function Clock({ className = "", hours = 0, minutes = 20, seconds = 0, miliseconds = 0 }) {
   hours = 0 > hours || hours > 59 ? 0 : hours;
   minutes = 0 > minutes || minutes > 59 ? 0 : minutes;
   seconds = 0 > seconds || seconds > 59 ? 0 : seconds;
   miliseconds = 0 > miliseconds || miliseconds > 999 ? 0 : miliseconds;
 
   return (
-    <h2 className="Clock">
+    <h2 className={"Clock" + className}>
       Pozostało {hours < 10 ? "0" + hours : hours}:
       {minutes < 10 ? "0" + minutes : minutes}:
       {seconds < 10 ? "0" + seconds : seconds}:
@@ -23,9 +23,7 @@ function Clock({ hours = 0, minutes = 20, seconds = 0, miliseconds = 0 }) {
   );
 }
 
-function ProgressBar({ percent = 7, trackRemaining = false }) {
-  console.log(trackRemaining);
-
+function ProgressBar({ className = "", percent = 7, trackRemaining = false }) {
   var styles = {
     width: `${percent}%`
   };
@@ -42,13 +40,13 @@ function ProgressBar({ percent = 7, trackRemaining = false }) {
   // var trackRemaining
   if (trackRemaining) {
     return (
-      <div className="ProgressBar" style={progressBarBackwards}>
+      <div className={"ProgressBar " + className}  style={progressBarBackwards}>
         <div style={stylesBackwards} />
       </div>
     );
   } else {
     return (
-      <div className="ProgressBar">
+      <div className={"ProgressBar " + className} >
         <div style={styles} />
       </div>
     );
@@ -79,20 +77,32 @@ class Timebox extends React.Component {
     });
   }
 
+  togglePause() {
+    this.setState(
+      function(prevState){
+
+        var isPaused = !prevState.isPaused;
+        return { 
+          isPaused : !prevState.isPaused,
+          pausesCount: isPaused ? prevState.pausesCount + 1 : prevState.pausesCount
+        }
+    });
+  }
+
   render() {
     const { isPaused, isRunning, pausesCount } = this.state;
     return (
       <div className="Timebox">
         <h1>Uczę się skrótów klawiszowych</h1>
-        <Clock hours="-33" minutes="-59" seconds="-59" miliseconds="111" />
-        <ProgressBar percent="20" trackRemaining="true" />
+        <Clock className={isPaused ? "inactive" : "" } hours="-33" minutes="-59" seconds="-59" miliseconds="111" />
+        <ProgressBar className={isPaused ? "inactive" : "" }percent="20" trackRemaining="true" />
         <button onClick={this.handleStart.bind(this)} disabled={isRunning}>
           Start
         </button>
         <button onClick={this.handleStop.bind(this)} disabled={!isRunning}>
           Stop
         </button>
-        <button>Pauzuj</button>Liczba przerw: 2
+        <button onClick={this.togglePause.bind(this)}>Pauzuj</button>Liczba przerw: {pausesCount}
       </div>
     );
   }
