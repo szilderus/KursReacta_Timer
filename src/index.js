@@ -171,16 +171,29 @@ class Timebox extends React.Component {
 }
 
 class TimeboxEditor extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: "pol godziny z reactem",
+      totalTimeInMinutes: 15
+    };
+  }
+
   render() {
     return (
       <div className="TimeboxEditor">
         <label>
           Co robisz?
-          <input defaultValue="Uczę się skrótów klawiszowych" type="text" />
+          <input disabled={false} value={this.state.title} type="text" />
         </label>
         <br />
         <label>
-          Ile minut? <input defaultValue="25" type="number" />
+          Ile minut?
+          <input
+            disabled={false}
+            value={this.state.totalTimeInMinutes}
+            type="number"
+          />
         </label>
         <br />
         <button>Zacznij</button>
