@@ -170,21 +170,23 @@ class Timebox extends React.Component {
   }
 }
 
-function TimeboxEditor() {
-  return (
-    <div className="TimeboxEditor">
-      <label>
-        Co robisz?
-        <input defaultValue="Uczę się skrótów klawiszowych" type="text" />
-      </label>
-      <br />
-      <label>
-        Ile minut? <input defaultValue="25" type="number" />
-      </label>
-      <br />
-      <button>Zacznij</button>
-    </div>
-  );
+class TimeboxEditor extends React.Component {
+  render() {
+    return (
+      <div className="TimeboxEditor">
+        <label>
+          Co robisz?
+          <input defaultValue="Uczę się skrótów klawiszowych" type="text" />
+        </label>
+        <br />
+        <label>
+          Ile minut? <input defaultValue="25" type="number" />
+        </label>
+        <br />
+        <button>Zacznij</button>
+      </div>
+    );
+  }
 }
 
 function App() {
