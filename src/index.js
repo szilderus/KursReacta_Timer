@@ -3,7 +3,13 @@ import ReactDOM from "react-dom";
 
 import "./styles.css";
 
-function Clock({ className = "", hours = 0, minutes = 20, seconds = 0, miliseconds = 0 }) {
+function Clock({
+  className = "",
+  hours = 0,
+  minutes = 20,
+  seconds = 0,
+  miliseconds = 0
+}) {
   hours = 0 > hours || hours > 59 ? 0 : hours;
   minutes = 0 > minutes || minutes > 59 ? 0 : minutes;
   seconds = 0 > seconds || seconds > 59 ? 0 : seconds;
@@ -40,13 +46,13 @@ function ProgressBar({ className = "", percent = 7, trackRemaining = false }) {
   // var trackRemaining
   if (trackRemaining) {
     return (
-      <div className={"ProgressBar " + className}  style={progressBarBackwards}>
+      <div className={"ProgressBar " + className} style={progressBarBackwards}>
         <div style={stylesBackwards} />
       </div>
     );
   } else {
     return (
-      <div className={"ProgressBar " + className} >
+      <div className={"ProgressBar " + className}>
         <div style={styles} />
       </div>
     );
@@ -54,7 +60,6 @@ function ProgressBar({ className = "", percent = 7, trackRemaining = false }) {
 }
 
 class Timebox extends React.Component {
-  
   constructor(props) {
     super(props);
     this.state = {
@@ -67,33 +72,30 @@ class Timebox extends React.Component {
     this.handleStart = this.handleStart.bind(this);
     this.handleStop = this.handleStop.bind(this);
     this.togglePause = this.togglePause.bind(this);
-
-
   }
 
   handleStart(event) {
     this.setState({
-      isRunning: true,
+      isRunning: true
       //elapsedTimeInSeconds: 15* 60 + 20
     });
 
     this.startTimer();
   }
 
-  startTimer(){
+  startTimer() {
     this.intervalId = window.setInterval(
-      
       // this is arrow function equivalent to  // function(){  }.bind(this)
       () => {
-          this.setState(
-            (prevState) => ( { elapsedTimeInSeconds: prevState.elapsedTimeInSeconds + 1 }) 
-          )
+        this.setState(prevState => ({
+          elapsedTimeInSeconds: prevState.elapsedTimeInSeconds + 1
+        }));
       },
       1000
-    )
+    );
   }
 
-  stopTimer(){
+  stopTimer() {
     window.clearInterval(this.intervalId);
   }
 
@@ -102,44 +104,59 @@ class Timebox extends React.Component {
       isRunning: false,
       isPaused: false,
       pausesCount: 0,
-      elapsedTimeInSeconds : 0
+      elapsedTimeInSeconds: 0
     });
-
     this.stopTimer();
   }
 
   togglePause() {
-    this.setState(
-      function(prevState){ 
-        var isPaused = !prevState.isPaused;
-        
-        if(isPaused){
-          this.stopTimer();
-        }else{
-          this.startTimer();
-        }
-        
-        return { 
-          isPaused : !prevState.isPaused,
-          pausesCount: isPaused ? prevState.pausesCount + 1 : prevState.pausesCount
-        }
+    this.setState(function(prevState) {
+      var isPaused = !prevState.isPaused;
+
+      if (isPaused) {
+        this.stopTimer();
+      } else {
+        this.startTimer();
+      }
+
+      return {
+        isPaused: !prevState.isPaused,
+        pausesCount: isPaused
+          ? prevState.pausesCount + 1
+          : prevState.pausesCount
+      };
     });
   }
 
   render() {
-    const { isPaused, isRunning, pausesCount, elapsedTimeInSeconds} = this.state;
-    const totalTimeInSeconds =  60
+    const {
+      isPaused,
+      isRunning,
+      pausesCount,
+      elapsedTimeInSeconds
+    } = this.state;
+    const totalTimeInSeconds = 60;
     const timeLeftInSeconds = totalTimeInSeconds - elapsedTimeInSeconds;
     const minutesLeft = Math.floor(timeLeftInSeconds / 60);
     const secondsLeft = Math.floor(timeLeftInSeconds % 60);
 
-    const progressInPercent = (elapsedTimeInSeconds / totalTimeInSeconds ) * 100;
+    const progressInPercent = (elapsedTimeInSeconds / totalTimeInSeconds) * 100;
 
     return (
       <div className="Timebox">
         <h1>Uczę się skrótów klawiszowych</h1>
-        <Clock className={isPaused ? "inactive" : "" } hours="-33" minutes= {minutesLeft} seconds= {secondsLeft} miliseconds="111" />
-        <ProgressBar className={isPaused ? "inactive" : "" } percent= {progressInPercent} trackRemaining="true" />
+        <Clock
+          className={isPaused ? "inactive" : ""}
+          hours="-33"
+          minutes={minutesLeft}
+          seconds={secondsLeft}
+          miliseconds="111"
+        />
+        <ProgressBar
+          className={isPaused ? "inactive" : ""}
+          percent={progressInPercent}
+          trackRemaining="true"
+        />
         <button onClick={this.handleStart} disabled={isRunning}>
           Start
         </button>
@@ -158,11 +175,11 @@ function TimeboxEditor() {
     <div className="TimeboxEditor">
       <label>
         Co robisz?
-        <input value="Uczę się skrótów klawiszowych" type="text" />
+        <input defaultValue="Uczę się skrótów klawiszowych" type="text" />
       </label>
       <br />
       <label>
-        Ile minut? <input value="25" type="number" />
+        Ile minut? <input defaultValue="25" type="number" />
       </label>
       <br />
       <button>Zacznij</button>
