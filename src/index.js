@@ -260,24 +260,58 @@ class EditableTimebox extends React.Component{
 
 
 
-function TimeboxCreator({onCreate}){
+class TimeboxCreator extends React.Component{
   
+  state={
+    title: "",
+    totalTimeInMinutes: ""
+  }
+
+  handleTitleChange = (event) => {
+    this.setState({title: event.target.value});
+  }
+
+  handleTotalTimeInMinutesChange = (event) => {
+    this.setState({totalTimeInMinutes: event.target.value});
+  }
+
+handleSubmit = (event) => {
+  event.preventDefault();
+  this.props.onCreate(  
+    {
+      id: uuid.v4(),
+      title: this.state.title, 
+      totalTimeInMinutes : this.state.totalTimeInMinutes
+    });
+}
+
+render(){
   return (
-    <div className='TimeboxCreator'>
+    <form onSubmit={this.handleSubmit} className='TimeboxCreator'>
       <label>
         Co robisz?
-        <input />
+        <input 
+          value={this.state.title} 
+          onChange={this.handleTitleChange}    
+          type="text"
+        />
       </label>
       <br />
       <label>
         Ile minut?      
-      <input />
+      <input 
+        value={this.state.totalTimeInMinutes } 
+        onChange={this.handleTotalTimeInMinutesChange}
+        type="number"
+      />
       </label>
       <br />
 
-      <button onClick={onCreate}>Dodaj timebox</button>
-    </div>
-  );
+      <button>Dodaj timebox</button>
+    </form>
+  )
+}
+
 }
 
 class TimeboxList extends React.Component{
@@ -325,16 +359,16 @@ class TimeboxList extends React.Component{
 
   
 
-  handleCreate = () => {
+  handleCreate = (newTimeboxModel) => {
     console.log("Tworze nowy timebox"); 
-    this.addTimebox( { id: uuid.v4(), title: "tytul", totalTimeInMinutes: 12 })
+    this.addTimebox(newTimeboxModel)
   }
 
   render(){
     return (
       <>   
         <TimeboxCreator onCreate={this.handleCreate} />        
-        {this.state.timeboxes.map(function(timebox, index) {
+        {this.state.timeboxes.map((timebox, index)=>{
           return <Timebox 
                     key={index} 
                     title={timebox.title} 
@@ -342,7 +376,7 @@ class TimeboxList extends React.Component{
                     onDelete={() => this.removeTimebox(index)}
                     onEdit={() => this.updateTimebox(index, {...timebox, title: "Updated timebox"})}
                   />
-        }.bind(this))}
+        })}
         
       </>
     ) 

@@ -28,4 +28,10 @@ this.setState( prevState => {
  console.log(`prevState ${prevState}`); - nieladnie jako Object object
  prevState [object Object]
 
-3. metoda filter
+3. ()=> {}     jest równoważne      function(){}.bind(this)
+
+4. dodawac pod filmikami opis zadan domowych (w tygodniu 3 tego brakowalo)
+
+
+
+
