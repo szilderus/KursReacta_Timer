@@ -1,0 +1,31 @@
+------------Tydzien 3--------------------------------------------------------------
+
+Performance frameworków js.
+
+
+------------Tydzien 4--------------------------------------------------------------
+
+
+pytania
+
+1. wyjasnienie funkcji setState
+this.setState( prevState => {
+      
+    
+    
+      const timeboxes = [timebox, ...prevState.timeboxes];
+      console.log(timeboxes);
+      
+------>return { ...prevState, timeboxes };
+    })
+	
+	
+2. 
+
+ console.log(prevState); - ladnie wyswietla w konsoli 
+ {timeboxes: Array(3), cokowiek: 123}
+ 
+ console.log(`prevState ${prevState}`); - nieladnie jako Object object
+ prevState [object Object]
+
+3. metoda filter

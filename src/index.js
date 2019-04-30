@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import uuid from 'uuid';
 
 import "./styles.css";
 
@@ -59,7 +60,7 @@ function ProgressBar({ className = "", percent = 7, trackRemaining = false }) {
   }
 }
 
-class Timebox extends React.Component {
+class CurrentTimebox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -235,12 +236,8 @@ class EditableTimebox extends React.Component{
     const {title, totalTimeInMinutes, isEditable } = this.state;
   
     return (
-
-      
-
       <React.Fragment>
-
-        <div>{clamp(1, 59, 59)}</div>
+        
         <TimeboxEditor 
           title={title} 
           totalTimeInMinutes={totalTimeInMinutes}
@@ -250,7 +247,7 @@ class EditableTimebox extends React.Component{
           onTotalTimeInMinutesChange ={this.handleTotalTimeInMinutes}   
          
           />          
-        <Timebox
+        <CurrentTimebox
           isEditable={isEditable}  
           title={title} 
           totalTimeInMinutes={totalTimeInMinutes}
@@ -261,10 +258,119 @@ class EditableTimebox extends React.Component{
   }
 }
 
+
+
+function TimeboxCreator({onCreate}){
+  
+  return (
+    <div className='TimeboxCreator'>
+      <label>
+        Co robisz?
+        <input />
+      </label>
+      <br />
+      <label>
+        Ile minut?      
+      <input />
+      </label>
+      <br />
+
+      <button onClick={onCreate}>Dodaj timebox</button>
+    </div>
+  );
+}
+
+class TimeboxList extends React.Component{
+  state = {
+    timeboxes : [
+       {id: uuid.v4(),title: "ucze sie 1", totalTimeInMinutes : 2},
+       {id: uuid.v4(),title: "jajko na miekko", totalTimeInMinutes : 5},
+       {id: uuid.v4(),title: "jajko na twardo", totalTimeInMinutes : 8},       
+    ],
+    cokowiek : 123
+  }
+
+  addTimebox = (timebox) => {
+    this.setState( prevState => {
+      
+      // this should not be done as react might not recognize changes to the state
+      //prevstat.timeboxes.push(timebox); 
+      
+      // use that instead:
+      const timeboxes = [timebox, ...prevState.timeboxes];
+      console.log(timeboxes);
+      
+      // here return whole state object otherwise it won't work
+      console.log(`prevState ${prevState.toString()}`);
+      console.log(prevState);
+      return { ...prevState, timeboxes };
+    })
+  }
+  
+  removeTimebox = (indexToRemove) => {
+    this.setState(prevState => {
+        const timeboxes = prevState.timeboxes.filter((timebox, index) => index !== indexToRemove);
+        return {timeboxes};
+    })
+  }
+
+  updateTimebox = (indexToUpdate, updatedTimebox) => {
+    this.setState(prevState => {
+      const timeboxes = prevState.timeboxes.map( (timebox, index) => 
+        index === indexToUpdate ? updatedTimebox : timebox
+      )
+      return {timeboxes};
+    }) 
+  }
+
+  
+
+  handleCreate = () => {
+    console.log("Tworze nowy timebox"); 
+    this.addTimebox( { id: uuid.v4(), title: "tytul", totalTimeInMinutes: 12 })
+  }
+
+  render(){
+    return (
+      <>   
+        <TimeboxCreator onCreate={this.handleCreate} />        
+        {this.state.timeboxes.map(function(timebox, index) {
+          return <Timebox 
+                    key={index} 
+                    title={timebox.title} 
+                    totalTimeInMinutes={timebox.totalTimeInMinutes}
+                    onDelete={() => this.removeTimebox(index)}
+                    onEdit={() => this.updateTimebox(index, {...timebox, title: "Updated timebox"})}
+                  />
+        }.bind(this))}
+        
+      </>
+    ) 
+    
+  }
+
+}
+
+
+function Timebox({title, totalTimeInMinutes, onDelete, onEdit }){
+    return(
+      <>
+        <div className="Timebox">
+          <h3>{title} - {totalTimeInMinutes} min.</h3>
+          
+          <button onClick={onDelete}>Usuń</button>
+          <button onClick={onEdit}>Zmien</button>
+        </div> 
+      
+      </>
+    )
+}
+
+
 function App() {
   return (
     <div className="App">
-     <EditableTimebox />
+     <TimeboxList />
     </div>
   );
 }
