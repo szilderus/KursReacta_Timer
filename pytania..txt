@@ -10,27 +10,32 @@ pytania
 
 1. wyjasnienie funkcji setState
 this.setState( prevState => {
-      
-    
-    
+          
       const timeboxes = [timebox, ...prevState.timeboxes];
       console.log(timeboxes);
       
 ------>return { ...prevState, timeboxes };
     })
 	
-	
-2. 
+2. wtyczki do intellisens'a (do opisu funkcji)
 
- console.log(prevState); - ladnie wyswietla w konsoli 
+3. console.log(prevState); - ladnie wyswietla w konsoli 
+
  {timeboxes: Array(3), cokowiek: 123}
- 
+
  console.log(`prevState ${prevState}`); - nieladnie jako Object object
  prevState [object Object]
+ 
+ console.log('prevsteg', prevState);
+ console.group
+ 
+ 
+4. debugging javascriptu
 
-3. ()=> {}     jest równoważne      function(){}.bind(this)
+5. ()=> {}     jest równoważne      function(){}.bind(this)
 
-4. dodawac pod filmikami opis zadan domowych (w tygodniu 3 tego brakowalo)
+6. dodawac pod filmikami opis zadan domowych (w tygodniu 3 tego brakowalo)
+
 
 
 

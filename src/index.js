@@ -348,6 +348,16 @@ class TimeboxList extends React.Component{
     })
   }
 
+
+
+  showEditForm = (index, timebox) => {
+
+    // show edit form?
+
+    this.updateTimebox(index, {...timebox, title: "Updated timebox"})
+  }
+  
+
   updateTimebox = (indexToUpdate, updatedTimebox) => {
     this.setState(prevState => {
       const timeboxes = prevState.timeboxes.map( (timebox, index) => 
@@ -374,7 +384,7 @@ class TimeboxList extends React.Component{
                     title={timebox.title} 
                     totalTimeInMinutes={timebox.totalTimeInMinutes}
                     onDelete={() => this.removeTimebox(index)}
-                    onEdit={() => this.updateTimebox(index, {...timebox, title: "Updated timebox"})}
+                    onEdit={() => this.showEditForm(index, timebox)}
                   />
         })}
         
@@ -386,20 +396,93 @@ class TimeboxList extends React.Component{
 }
 
 
-function Timebox({title, totalTimeInMinutes, onDelete, onEdit }){
+class Timebox extends React.Component {
+  
+  constructor(props) {
+    super(props);
+
+    
+  }
+
+  state = {
+    title: this.props.title,
+    totalTimeInMinutes: this.props.totalTimeInMinutes,
+    showForm: false
+  }
+  handleValuesInParent = (title, totalTimeInMinutes) =>{
+    this.setState({title, totalTimeInMinutes});
+  }
+  
+  render() {
     return(
       <>
         <div className="Timebox">
-          <h3>{title} - {totalTimeInMinutes} min.</h3>
+          <h3>{this.state.title} - {this.state.totalTimeInMinutes} min.</h3>
           
-          <button onClick={onDelete}>Usuń</button>
-          <button onClick={onEdit}>Zmien</button>
+          <button onClick={this.props.onDelete}>Usuń</button>
+          <button onClick={this.props.onEdit}>Zmien</button>
+
+          <LocalEditor handleValues={this.handleValuesInParent} showForm={this.state.showForm} title={this.props.title} totalTimeInMinutes={this.props.totalTimeInMinutes} />
+
         </div> 
       
       </>
     )
+  }
 }
 
+class LocalEditor extends React.Component {
+
+  
+    constructor(props) {
+        super(props);
+
+        
+    }
+
+    state = {
+      username : ''
+    }
+
+    handleSave = (event) => {
+      // read values from fields
+      //var lang = this.dropdown.value;
+
+      this.props.handleValues(this.state.title, this.state.totalTimeInMinutes);  
+    }
+  
+    handleCancel = (event) => {
+
+    }
+
+    updateInput = (event) => { 
+      this.setState({title : event.target.value})
+    }
+
+    updateTotalTimeInMinutes = (event) => {
+      this.setState({totalTimeInMinutes: event.target.value})
+    }
+      
+    render() {
+      return(
+        <React.Fragment>
+          <div className={`hiddenTimeboxEditor ${this.props.showForm ? "" : "hidden"}`}>
+          <label>Change title</label>
+              <input defaultValue={this.props.title} onChange={this.updateInput} type="text" />
+          <br />
+          <label>minutes</label>
+              <input defaultValue={this.props.totalTimeInMinutes} onChange={this.updateTotalTimeInMinutes} type="number" />
+          <br />
+          <button onClick={this.handleSave}>Save</button>
+          <button onClick={this.handleCancel}>Cancel</button>
+          <br />
+          <label>Uwagi<input type="text"/></label>
+        </div>
+      </React.Fragment>
+      )
+
+    }
+}
 
 function App() {
   return (
