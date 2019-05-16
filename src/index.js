@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import uuid from 'uuid';
 
-import "./styles.css";
+import "./styles/styles.css";
 
 function Clock({
   className = "",
@@ -351,7 +351,6 @@ class TimeboxList extends React.Component{
 
 
   showEditForm = (index, timebox) => {
-
     // show edit form?
 
     this.updateTimebox(index, {...timebox, title: "Updated timebox"})
@@ -400,8 +399,6 @@ class Timebox extends React.Component {
   
   constructor(props) {
     super(props);
-
-    
   }
 
   state = {
@@ -409,6 +406,7 @@ class Timebox extends React.Component {
     totalTimeInMinutes: this.props.totalTimeInMinutes,
     showForm: false
   }
+
   handleValuesInParent = (title, totalTimeInMinutes) =>{
     this.setState({title, totalTimeInMinutes});
   }
@@ -418,11 +416,15 @@ class Timebox extends React.Component {
       <>
         <div className="Timebox">
           <h3>{this.state.title} - {this.state.totalTimeInMinutes} min.</h3>
-          
+
           <button onClick={this.props.onDelete}>Usuń</button>
           <button onClick={this.props.onEdit}>Zmien</button>
 
-          <LocalEditor handleValues={this.handleValuesInParent} showForm={this.state.showForm} title={this.props.title} totalTimeInMinutes={this.props.totalTimeInMinutes} />
+          <LocalEditor 
+            handleValues={this.handleValuesInParent} 
+            showForm={this.state.showForm} 
+            title={this.props.title} 
+            totalTimeInMinutes={this.props.totalTimeInMinutes} />
 
         </div> 
       
@@ -433,11 +435,8 @@ class Timebox extends React.Component {
 
 class LocalEditor extends React.Component {
 
-  
     constructor(props) {
         super(props);
-
-        
     }
 
     state = {
@@ -447,11 +446,11 @@ class LocalEditor extends React.Component {
     handleSave = (event) => {
       // read values from fields
       //var lang = this.dropdown.value;
-
       this.props.handleValues(this.state.title, this.state.totalTimeInMinutes);  
     }
   
     handleCancel = (event) => {
+      // ?
 
     }
 
@@ -475,8 +474,7 @@ class LocalEditor extends React.Component {
           <br />
           <button onClick={this.handleSave}>Save</button>
           <button onClick={this.handleCancel}>Cancel</button>
-          <br />
-          <label>Uwagi<input type="text"/></label>
+                         
         </div>
       </React.Fragment>
       )
