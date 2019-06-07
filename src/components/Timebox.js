@@ -1,10 +1,7 @@
 import React from "react";
+import LocalEditor from "./LocalEditor";
 
 class Timebox extends React.Component {
-  
-    constructor(props) {
-      super(props);
-    }
   
     state = {
       title: this.props.title,

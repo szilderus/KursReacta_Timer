@@ -37,6 +37,30 @@ this.setState( prevState => {
 6. dodawac pod filmikami opis zadan domowych (w tygodniu 3 tego brakowalo)
 
 
+Tydzien 8 (03.06.2019)
+
+1.
+
+pierwsze nie dziala dlaczego? (godzine tego szukalem)
+
+import {TimeboxList } from './TimeboxList';
+
+Attempted import error: 'TimeboxList' is not exported from './TimeboxList'.
+
+index.js:1446 Warning: React.createElement: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+
+Check your code at App.js:15.
+    in App (at src/index.js:11)
+    in div (at src/index.js:10)
+console.<computed> @ index.js:1446
+react-dom.development.js:65 Uncaught Invariant Violation: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+
+import TimeboxList from './TimeboxList';
+
+
+
+2. Co to jest manifest.json i czemu wali warningiem
+
 
 
 

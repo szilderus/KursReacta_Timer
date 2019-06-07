@@ -1,8 +1,8 @@
 import React from "react";
 import uuid from 'uuid';
 
-import Timebox from 'Timebox';
-import TimeboxCreator from "TimeboxCreator";
+import Timebox from './Timebox';
+import TimeboxCreator from "./TimeboxCreator";
 
 class TimeboxList extends React.Component{
     state = {

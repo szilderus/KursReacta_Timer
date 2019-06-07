@@ -1,4 +1,5 @@
 import React from "react";
+import Clock from "./Clock";
 
 class CurrentTimebox extends React.Component {
     constructor(props) {

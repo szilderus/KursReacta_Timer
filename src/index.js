@@ -1,16 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./styles/styles.css";
+import "./styles/main.scss";
 
-import {TimeboxList} from './components/TimeboxList';
-
-function App() {
-  return (
-    <div className="App">
-     <TimeboxList />
-    </div>
-  );
-}
+import App from './components/App';
 
 const rootElement = document.getElementById("root");
 
