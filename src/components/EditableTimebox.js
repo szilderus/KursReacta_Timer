@@ -1,6 +1,6 @@
 import React from "react";
-import {TimeboxEditor} from "./TimeboxEditor";
-import {CurrentTimebox} from "./CurrentTimebox";
+import TimeboxEditor from "./TimeboxEditor";
+import CurrentTimebox from "./CurrentTimebox";
 
 class EditableTimebox extends React.Component{
 
@@ -38,22 +38,24 @@ class EditableTimebox extends React.Component{
     
       return (
         <React.Fragment>
-          
-          <TimeboxEditor 
-            title={title} 
-            totalTimeInMinutes={totalTimeInMinutes}
-            isEditable = {isEditable}
-            onConfirm = {this.handleConfirm}
-            onTitleChange={this.handleTitleChange}
-            onTotalTimeInMinutesChange ={this.handleTotalTimeInMinutes}   
-           
-            />          
-          <CurrentTimebox
-            isEditable={isEditable}  
-            title={title} 
-            totalTimeInMinutes={totalTimeInMinutes}
-            onEdit={this.handleEdit}          
-            />
+          <div className="editableTimebox">
+            <span>EditableTimebox</span>
+            <TimeboxEditor 
+              title={title} 
+              totalTimeInMinutes={totalTimeInMinutes}
+              isEditable = {isEditable}
+              onConfirm = {this.handleConfirm}
+              onTitleChange={this.handleTitleChange}
+              onTotalTimeInMinutesChange ={this.handleTotalTimeInMinutes}   
+            
+              />          
+            <CurrentTimebox
+              isEditable={isEditable}  
+              title={title} 
+              totalTimeInMinutes={totalTimeInMinutes}
+              onEdit={this.handleEdit}          
+              />
+            </div>
         </React.Fragment>
       )
     }

@@ -7,6 +7,7 @@ class LocalEditor extends React.Component {
     }
 
     handleSave = (event) => {     
+      debugger
       this.props.handleValues(this.state.title, this.state.totalTimeInMinutes);  
     }
   

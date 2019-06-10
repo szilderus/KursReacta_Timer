@@ -1,6 +1,9 @@
 import React from "react";
 
+
 function ProgressBar({ className = "", percent = 7, trackRemaining = false }) {
+    
+  
     var styles = {
       width: `${percent}%`
     };
@@ -14,20 +17,28 @@ function ProgressBar({ className = "", percent = 7, trackRemaining = false }) {
       width: `${100 - percent}%`
     };
   
+    return (
+          <div className={"ProgressBar " + className}>
+            <div style={styles} />
+          </div>
+    );
+
     // var trackRemaining
-    if (trackRemaining) {
-      return (
-        <div className={"ProgressBar " + className} style={progressBarBackwards}>
-          <div style={stylesBackwards} />
-        </div>
-      );
-    } else {
-      return (
-        <div className={"ProgressBar " + className}>
-          <div style={styles} />
-        </div>
-      );
-    }
+    
+    // if (trackRemaining) {
+    //   return (
+    //     // <div className={"ProgressBar " + className} style={progressBarBackwards}>
+    //     //   <div style={stylesBackwards} />
+    //     // </div>
+    //   );
+    // } else {
+    //   return (
+    //     <div className={"ProgressBar " + className}>
+    //       <div style={styles} />
+    //     </div>
+    //   );
+    // }
+
   }
 
 export default ProgressBar;

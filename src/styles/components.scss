@@ -1,58 +1,78 @@
+
 .App {
-    font-family: sans-serif;
-  }
+  font-family: sans-serif;
+}
+
+.Timebox {
+  border: $default-border;
+  border-radius: $border-radius;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.TimeboxEditor, .TimeboxCreator {
+  text-align: right;
+  border: $default-border;
+  border-radius: $border-radius;
+  padding: 20px;
+  margin-bottom: 10px;
+}
+
+.TimeboxCreator {
+  background-color: lighten(aqua, 40);
+}
+.TimeboxEditor {
+  background-color:darken(aquamarine, 5);
+}
+.Timebox {
+  background-color: #ffaaaa;
+}
+.CurrentTimebox {
+  background-color: #ffffaa;
+}
+
+input {
+  min-width: 60%;
+  margin-left: 20px;
+  font-size: 16px;
+}
+
+button{
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.CurrentTimebox {
+  border: 1px solid gray;
+  border-radius: 5px;
+  padding: 20px;
+  text-align: center;
+}
+
+.Clock {
+  color: orangered;
+}
+
+.ProgressBar {
+  border: 1px solid orangered;
+  border-radius: 5px;
+  height: 25px;
+  margin-bottom: 20px;
+  padding: 5px;
   
-  .Timebox{
-    border: 1px solid #000;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 10px;
-  }
-  
-  .TimeboxEditor, .TimeboxCreator {
-    text-align: right;
-    border: 2px solid #000;
-    border-radius: 5px;
-    padding: 20px;
-    margin-bottom: 10px;
-  }
-  
-  input {
-    min-width: 60%;
-    margin-left: 20px;
-    font-size: 16px;
-  }
-  button {
-    font-size: 16px;
-    margin-left: 10px;
-  }
-  .CurrentTimebox {
-    border: 2px solid #000;
-    font-size: 16px;
-    padding: 20px;
-    text-align: center;
-  }
-  .Clock {
-    color: orangered;
-  }
-  .ProgressBar {
-    border: 1px solid #000;
-    border-radius: 5px;
-    height: 25px;
-    margin-bottom: 20px;
-    padding: 5px;
-    /* display: flex;
-      justify-content:flex-end; */
-  }
-  .ProgressBar > div {
-    height: 100%;
-    background-color: orangered;
-  }             
-  
-  .inactive {
-    filter: blur(2px) grayscale(1);
-  }
-  
-  .hidden{  
-    display: none;
-  }
+  > div {
+      height: 100%;
+      background-color: orangered;
+    }
+
+}
+
+
+.editableTimebox{
+  border: $default-border;
+  border-radius: $border-radius;
+  border-color: random($limit: 3)
+}
+
+
+

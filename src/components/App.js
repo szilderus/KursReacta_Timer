@@ -1,7 +1,8 @@
 import React from "react";
 import TimeboxList from './TimeboxList';
+import EditableTimebox from './EditableTimebox';
 
-export default class App extends React.Component 
+export default class App extends React.Component    
 {
 //   constructor(props) {
 //     super(props);
@@ -10,7 +11,8 @@ export default class App extends React.Component
   render() {
     return (
       <div className="App">
-        <TimeboxList />
+        <TimeboxList />		
+        <EditableTimebox />
       </div>
     );
   }

@@ -16,47 +16,30 @@ class TimeboxList extends React.Component{
   
     addTimebox = (timebox) => {
       this.setState( prevState => {
-        
-        // this should not be done as react might not recognize changes to the state
-        //prevstat.timeboxes.push(timebox); 
-        
-        // use that instead:
         const timeboxes = [timebox, ...prevState.timeboxes];
-        console.log(timeboxes);
-        
-        // here return whole state object otherwise it won't work
-        console.log(`prevState ${prevState.toString()}`);
-        console.log(prevState);
         return { ...prevState, timeboxes };
       })
     }
     
-    removeTimebox = (indexToRemove) => {
+    removeTimebox = (idToRemove) => {
       this.setState(prevState => {
-          const timeboxes = prevState.timeboxes.filter((timebox, index) => index !== indexToRemove);
+          const timeboxes = prevState.timeboxes.filter((timebox) => timebox.id !== idToRemove);
           return {timeboxes};
       })
     }
-  
-  
-  
-    showEditForm = (index, timebox) => {
-      // show edit form?
-  
-      this.updateTimebox(index, {...timebox, title: "Updated timebox"})
+
+    showEditForm = (timebox) => {
+      this.updateTimebox({...timebox, title: "Updated timebox"})
     }
-    
   
-    updateTimebox = (indexToUpdate, updatedTimebox) => {
+    updateTimebox = (updatedTimebox) => {
       this.setState(prevState => {
-        const timeboxes = prevState.timeboxes.map( (timebox, index) => 
-          index === indexToUpdate ? updatedTimebox : timebox
+        const timeboxes = prevState.timeboxes.map( (oldTimebox) => 
+          oldTimebox.id === updatedTimebox.id ? updatedTimebox : oldTimebox
         )
         return {timeboxes};
       }) 
     }
-  
-    
   
     handleCreate = (newTimeboxModel) => {
       console.log("Tworze nowy timebox"); 
@@ -66,14 +49,14 @@ class TimeboxList extends React.Component{
     render(){
       return (
         <>   
-          <TimeboxCreator onCreate={this.handleCreate} />        
-          {this.state.timeboxes.map((timebox, index)=>{
+          <TimeboxCreator onCreate={this.handleCreate} />                  
+          {this.state.timeboxes.map((timebox)=>{
             return <Timebox 
-                      key={index} 
+                      key={timebox.id} 
                       title={timebox.title} 
                       totalTimeInMinutes={timebox.totalTimeInMinutes}
-                      onDelete={() => this.removeTimebox(index)}
-                      onEdit={() => this.showEditForm(index, timebox)}
+                      onDelete={() => this.removeTimebox(timebox.id)}
+                      onEdit={() => this.showEditForm(timebox.id, timebox)}
                     />
           })}
           
